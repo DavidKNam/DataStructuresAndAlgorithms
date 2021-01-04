@@ -1,4 +1,5 @@
-# Implementation of Binary Search Tree in Python
+# Implementation of BFS in Python
+
 
 class Node():
     def __init__(self, value):
@@ -44,6 +45,26 @@ class BST():
                 else:
                     return False
 
+    def breadthFirstSearch(self):
+        if not self.root:
+            return
+        else:
+            current_node = self.root
+            search_list = []
+            queue = []
+
+            queue.append(current_node)
+
+            while len(queue) > 0:
+                current_node = queue.pop(0)
+                search_list.append(current_node.data)
+                if current_node.left:
+                    queue.append(current_node.left)
+                if current_node.right:
+                    queue.append(current_node.right)
+
+            return search_list
+
     def print_tree(self):
         if self.root != None:
             self.printt(self.root)
@@ -70,4 +91,4 @@ myBST.insert(170)
 print(myBST.lookup(170))
 print(myBST.lookup(16))
 print(myBST.lookup(6))
-myBST.print_tree()
+print(myBST.breadthFirstSearch())
