@@ -1,5 +1,4 @@
-# Implementation of BFS in Python
-
+# Implementation of Binary Search Tree Validation in Python
 
 class Node():
     def __init__(self, value):
@@ -45,38 +44,28 @@ class BST():
                 else:
                     return False
 
-    def breadthFirstSearch(self):
+    def validateBST(self):
+
+        queue = []
+
         if not self.root:
-            return
+            return True
         else:
-            current_node = self.root
-            search_list = []
-            queue = []
-
-            queue.append(current_node)
-
+            queue.append(self.root)
             while len(queue) > 0:
                 current_node = queue.pop(0)
-                search_list.append(current_node.data)
                 if current_node.left:
-                    queue.append(current_node.left)
+                    if current_node.left.data < current_node.data:
+                        queue.append(current_node.left)
+                    else:
+                        return False
                 if current_node.right:
-                    queue.append(current_node.right)
+                    if current_node.right.data >= current_node.data:
+                        queue.append(current_node.right)
+                    else:
+                        return False
+        return True
 
-            return search_list
-
-    def breadthFirstSearchRecursive(self, queue, search_list):
-        if not queue:
-            return search_list
-        else:
-            current_node = queue.pop(0)
-            search_list.append(current_node.data)
-            if current_node.left:
-                queue.append(current_node.left)
-            if current_node.right:
-                queue.append(current_node.right)
-
-            return self.breadthFirstSearchRecursive(queue, search_list)
 
     def print_tree(self):
         if self.root != None:
@@ -104,5 +93,5 @@ myBST.insert(170)
 print(myBST.lookup(170))
 print(myBST.lookup(16))
 print(myBST.lookup(6))
-print(myBST.breadthFirstSearch())
-print(myBST.breadthFirstSearchRecursive([myBST.root], []))
+myBST.print_tree()
+print(myBST.validateBST())

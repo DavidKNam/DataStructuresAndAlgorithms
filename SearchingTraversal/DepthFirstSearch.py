@@ -1,5 +1,4 @@
-# Implementation of BFS in Python
-
+# Implementation of Depth First Search in Python
 
 class Node():
     def __init__(self, value):
@@ -45,38 +44,38 @@ class BST():
                 else:
                     return False
 
-    def breadthFirstSearch(self):
-        if not self.root:
-            return
-        else:
-            current_node = self.root
-            search_list = []
-            queue = []
+    def DFS_Inorder(self):
+        return self.traverseInorder(self.root, [])
 
-            queue.append(current_node)
+    def DFS_Preorder(self):
+        return self.traversePreorder(self.root, [])
 
-            while len(queue) > 0:
-                current_node = queue.pop(0)
-                search_list.append(current_node.data)
-                if current_node.left:
-                    queue.append(current_node.left)
-                if current_node.right:
-                    queue.append(current_node.right)
+    def DFS_Postorder(self):
+        return self.traversePostorder(self.root, [])
 
-            return search_list
+    def traverseInorder(self, node, search_list):
+        if node.left:
+            self.traverseInorder(node.left, search_list)
+        search_list.append(node.data)
+        if node.right:
+            self.traverseInorder(node.right, search_list)
+        return search_list
 
-    def breadthFirstSearchRecursive(self, queue, search_list):
-        if not queue:
-            return search_list
-        else:
-            current_node = queue.pop(0)
-            search_list.append(current_node.data)
-            if current_node.left:
-                queue.append(current_node.left)
-            if current_node.right:
-                queue.append(current_node.right)
+    def traversePreorder(self, node, search_list):
+        search_list.append(node.data)
+        if node.left:
+            self.traversePreorder(node.left, search_list)
+        if node.right:
+            self.traversePreorder(node.right, search_list)
+        return search_list
 
-            return self.breadthFirstSearchRecursive(queue, search_list)
+    def traversePostorder(self, node, search_list):
+        if node.left:
+            self.traversePostorder(node.left, search_list)
+        if node.right:
+            self.traversePostorder(node.right, search_list)
+        search_list.append(node.data)
+        return search_list
 
     def print_tree(self):
         if self.root != None:
@@ -104,5 +103,7 @@ myBST.insert(170)
 print(myBST.lookup(170))
 print(myBST.lookup(16))
 print(myBST.lookup(6))
-print(myBST.breadthFirstSearch())
-print(myBST.breadthFirstSearchRecursive([myBST.root], []))
+myBST.print_tree()
+print(myBST.DFS_Inorder())
+print(myBST.DFS_Preorder())
+print(myBST.DFS_Postorder())
