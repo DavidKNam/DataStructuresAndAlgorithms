@@ -55,7 +55,7 @@ class BST():
 
             queue.append(current_node)
 
-            while len(queue) > 0:
+            while queue:
                 current_node = queue.pop(0)
                 search_list.append(current_node.data)
                 if current_node.left:
